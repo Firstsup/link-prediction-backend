@@ -18,23 +18,23 @@ const SI = require('../algorithm/SI')
 const SOL = require('../algorithm/SOL')
 const ERD = require('../algorithm/ERD')
 const LERD = require('../algorithm/LERD')
+const tenCrossValidation = require('../dataParsing/tenCrossValidation')
 
 module.exports = async (req, res) => {
     const datasetName = req.query.datasetName
-    const algorithmName = req.query.algorithmName
     try {
+        const algorithms = ['CN', 'AA', 'RA', 'PA', 'HDI', 'HPI', 'SI', 'SOL', 'CH', 'ERD', 'LERD']
         const data = await eval(datasetName + 'Model').find({})
-        const dataArray = []
-        data.forEach(d => {
-            dataArray.push(d.edge)
-        })
-        const matrix = eval(algorithmName)(data, dataArray)
         if (!data) {
             util.responseClient(res, 500, 0, '数据库出错', {})
             console.log('e:', '数据库出错')
         } else {
+            const score = []
+            for (const d of algorithms) {
+                score.push(await tenCrossValidation(datasetName, d))
+            }
             util.responseClient(res, 200, 1, '成功', {
-                matrix: matrix
+                score: score
             })
         }
     } catch (e) {
