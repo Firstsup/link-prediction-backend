@@ -22,7 +22,7 @@ const ERD = (data, dataArray) => {
                         }
                     }
                 })
-                sum += (2 + v1) / (v2 + v3)
+                sum += (2 + v1) / (v2 + v3 + 1)
             })
             similarityMatrix[i][j] = sum
         }

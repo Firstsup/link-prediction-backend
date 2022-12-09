@@ -1,6 +1,6 @@
 const _ = require('lodash')
 
-const LERD = (data, dataArray, a = 0.5, b = 0.5) => {
+const LERD = (data, dataArray, a = 1, b = 0.1) => {
     const vertexCount = dataArray.length
     const similarityMatrix = Array.from(Array(vertexCount), () => new Array(vertexCount))
     for (let i = 0; i < vertexCount; i++) {
@@ -22,7 +22,7 @@ const LERD = (data, dataArray, a = 0.5, b = 0.5) => {
                         }
                     }
                 })
-                sum += (2 + v1) / (v2 + v3)
+                sum += (2 + v1) / (v2 + v3 + 1)
             })
             const neighborsA = []
             dataArray[i].forEach(d => {
@@ -40,10 +40,9 @@ const LERD = (data, dataArray, a = 0.5, b = 0.5) => {
             for (let k = 0; k < neighborsA.length; k++) {
                 for (let l = 0; l < neighborsB.length; l++) {
                     if (dataArray[neighborsA[k] - 1].includes(neighborsB[l])) {
-                        // if (!CN2.includes([neighborsA[k], neighborsB[l]] && !CN2.includes([neighborsB[l], neighborsA[k]]))) {
-                        //
-                        // }
-                        CN2.push([neighborsA[k], neighborsB[l]])
+                        if (!CN2.includes([neighborsA[k], neighborsB[l]] && !CN2.includes([neighborsB[l], neighborsA[k]]))) {
+                            CN2.push([neighborsA[k], neighborsB[l]])
+                        }
                     }
                 }
             }
@@ -84,7 +83,7 @@ const LERD = (data, dataArray, a = 0.5, b = 0.5) => {
                 i2.forEach(d2 => {
                     v4 += 1 / dataArray[n2 - 1].length * ((dataArray[d2 - 1].length - 3) / dataArray[d2 - 1].length)
                 })
-                sum += a * ((4 / (dataArray[n1 - 1].length * dataArray[n2 - 1].length)) + b * v1 + b * v2) / (b * v3 + b * v4 + v5 + v6)
+                sum += a * ((4 / (dataArray[n1 - 1].length * dataArray[n2 - 1].length)) + b * v1 + b * v2) / (b * v3 + b * v4 + v5 + v6 + 1)
             })
             similarityMatrix[i][j] = sum
         }

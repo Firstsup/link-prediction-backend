@@ -22,13 +22,15 @@ const LERD = require('../algorithm/LERD')
 module.exports = async (req, res) => {
     const datasetName = req.query.datasetName
     const algorithmName = req.query.algorithmName
+    const a = req.query.a
+    const b = req.query.b
     try {
         const data = await eval(datasetName + 'Model').find({})
         const dataArray = []
         data.forEach(d => {
             dataArray.push(d.edge)
         })
-        const matrix = eval(algorithmName)(data, dataArray)
+        const matrix = eval(algorithmName)(data, dataArray, a, b)
         if (!data) {
             util.responseClient(res, 500, 0, '数据库出错', {})
             console.log('e:', '数据库出错')

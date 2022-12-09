@@ -25,16 +25,12 @@ module.exports = async (req, res) => {
     const a = req.query.a
     const b = req.query.b
     try {
-        const algorithms = ['CN', 'AA', 'RA', 'PA', 'HDI', 'HPI', 'SI', 'SOL', 'CH', 'ERD', 'LERD']
         const data = await eval(datasetName + 'Model').find({})
         if (!data) {
             util.responseClient(res, 500, 0, '数据库出错', {})
             console.log('e:', '数据库出错')
         } else {
-            const score = []
-            for (const d of algorithms) {
-                score.push(await tenCrossValidation(datasetName, d, a, b))
-            }
+            const score = await tenCrossValidation(datasetName, 'LERD', a, b)
             util.responseClient(res, 200, 1, '成功', {
                 score: score
             })
