@@ -1,6 +1,6 @@
 const _ = require('lodash')
 
-const LERD = (data, dataArray, a = 1, b = 0.1) => {
+const LERTR = (data, dataArray, a = 1, b = 0.1) => {
     const vertexCount = dataArray.length
     const similarityMatrix = Array.from(Array(vertexCount), () => new Array(vertexCount))
     for (let i = 0; i < vertexCount; i++) {
@@ -91,4 +91,4 @@ const LERD = (data, dataArray, a = 1, b = 0.1) => {
     return similarityMatrix
 }
 
-module.exports = LERD
+module.exports = LERTR

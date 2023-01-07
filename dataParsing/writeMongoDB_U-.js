@@ -3,10 +3,14 @@ const _ = require('lodash')
 const jazzMusiciansModel = require('../models/jazzMusicians')
 const zacharyModel = require('../models/zachary')
 const footballModel = require('../models/football')
-const euroroadModel = require('../models/euroroad')
+const euroroadsModel = require('../models/euroroads')
 const hamsterHouseholdModel = require('../models/hamsterHousehold')
 const arenasEmailModel = require('../models/arenasEmail')
 const USAirModel = require('../models/USAir')
+const DBpediaModel = require('../models/DBpedia')
+const physiciansModel = require('../models/physicians')
+const yeastModel = require('../models/yeast')
+const netscienceModel = require('../models/netscience')
 const datasetModel = require('../models/dataset')
 const {readDataset} = require('./readDataset')
 require('../config/mongodbConnection')
@@ -62,4 +66,4 @@ const writeMongoDB = async (datasetName) => {
     }
 }
 
-writeMongoDB('USAir')
+writeMongoDB('netscience')

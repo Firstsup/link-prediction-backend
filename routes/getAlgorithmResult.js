@@ -3,7 +3,7 @@ const datasetModel = require("../models/dataset");
 const jazzMusiciansModel = require('../models/jazzMusicians')
 const zacharyModel = require('../models/zachary')
 const footballModel = require('../models/football')
-const euroroadModel = require('../models/euroroad')
+const euroroadModel = require('../models/euroroads')
 const hamsterHouseholdModel = require('../models/hamsterHousehold')
 const arenasEmailModel = require('../models/arenasEmail')
 const USAirModel = require('../models/USAir')
@@ -16,8 +16,8 @@ const HDI = require('../algorithm/HDI')
 const HPI = require('../algorithm/HPI')
 const SI = require('../algorithm/SI')
 const SOL = require('../algorithm/SOL')
-const ERD = require('../algorithm/ERD')
-const LERD = require('../algorithm/LERD')
+const ERTR = require('../algorithm/ERTR')
+const LERTR = require('../algorithm/LERTR')
 const tenCrossValidation = require('../dataParsing/tenCrossValidation')
 
 module.exports = async (req, res) => {
@@ -33,7 +33,7 @@ module.exports = async (req, res) => {
             dataArray.push(d.edge)
         })
         const result = []
-        const algorithms = ['CN', 'AA', 'RA', 'PA', 'HDI', 'HPI', 'SI', 'SOL', 'CH', 'ERD', 'LERD']
+        const algorithms = ['CN', 'AA', 'RA', 'PA', 'HDI', 'HPI', 'SI', 'SOL', 'CH', 'ERTR', 'LERTR']
         algorithms.forEach(d => {
             const matrix = eval(d)(data, dataArray, a, b)
             const score = (parseInt(node1) < parseInt(node2)) ? matrix[node1 - 1][node2 - 1] : matrix[node2 - 1][node1 - 1]

@@ -6,7 +6,7 @@ router.get('/api/getMatrix', require('./getMatrix'))
 router.get('/api/getStatistics', require('./getStatistics'))
 router.get('/api/getAUCPrecision', require('./getAUCPrecision'))
 router.get('/api/getAlgorithmResult', require('./getAlgorithmResult'))
-router.get('/api/getLERDResult', require('./getLERDResult'))
-router.get('/api/getLERDAUCPrecisionOnly', require('./getLERDAUCPrecisionOnly'))
+router.get('/api/getLERTRResult', require('./getLERTRResult'))
+router.get('/api/getLERTRAUCPrecisionOnly', require('./getLERTRAUCPrecisionOnly'))
 
 module.exports = router
