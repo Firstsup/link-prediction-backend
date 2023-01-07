@@ -46,6 +46,4 @@ const main = async (dataset) => {
     }
 }
 
-main('jazzMusicians')
-main('yeast')
-main('netscience')
+main('hamsterster')

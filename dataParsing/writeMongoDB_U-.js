@@ -11,6 +11,7 @@ const DBpediaModel = require('../models/DBpedia')
 const physiciansModel = require('../models/physicians')
 const yeastModel = require('../models/yeast')
 const netscienceModel = require('../models/netscience')
+const hamstersterModel = require('../models/hamsterster')
 const datasetModel = require('../models/dataset')
 const {readDataset} = require('./readDataset')
 require('../config/mongodbConnection')
@@ -66,4 +67,4 @@ const writeMongoDB = async (datasetName) => {
     }
 }
 
-writeMongoDB('netscience')
+writeMongoDB('hamsterster')
