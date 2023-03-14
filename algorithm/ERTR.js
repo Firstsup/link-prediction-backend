@@ -16,13 +16,13 @@ const ERTR = (data, dataArray) => {
                     if (d2 !== i + 1 && d2 !== j + 1) {
                         if (intersection.includes(d2)) {
                             v1 += 2 / dataArray[d2 - 1].length
-                            v2 += (dataArray[d2 - 1].length - 3) / dataArray[d2 - 1].length
+                            v2 += (dataArray[d2 - 1].length - 2) / dataArray[d2 - 1].length
                         } else {
                             v3++
                         }
                     }
                 })
-                sum += (2 + v1) / (v2 + v3 + neighbors.length)
+                sum += (2 + v1 + neighbors.length) / (v2 + v3 + neighbors.length)
             })
             similarityMatrix[i][j] = sum
         }

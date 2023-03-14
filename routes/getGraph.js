@@ -7,6 +7,8 @@ const euroroadModel = require('../models/euroroads')
 const hamsterHouseholdModel = require('../models/hamsterHousehold')
 const arenasEmailModel = require('../models/arenasEmail')
 const USAirModel = require('../models/USAir')
+const DBpediaModel = require('../models/DBpedia')
+const physiciansModel = require('../models/physicians')
 
 module.exports = async (req, res) => {
     const datasetName = req.query.datasetName

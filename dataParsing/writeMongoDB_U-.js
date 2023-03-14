@@ -42,7 +42,10 @@ const writeMongoDB = async (datasetName) => {
             }
         }
     })
-    for (let i = 0; i < array.length; i++) {
+    for (let i = 1; i < array.length; i++) {
+        array[i] = Array.from(new Set(array[i]))
+    }
+    for (let i = 1; i < array.length; i++) {
         if (!_.isUndefined(array[i])) {
             try {
                 await eval(datasetName + 'Model').create({
@@ -67,4 +70,4 @@ const writeMongoDB = async (datasetName) => {
     }
 }
 
-writeMongoDB('hamsterster')
+writeMongoDB('physicians')

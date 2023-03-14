@@ -18,6 +18,8 @@ const SI = require('../algorithm/SI')
 const SOL = require('../algorithm/SOL')
 const ERTR = require('../algorithm/ERTR')
 const LERTR = require('../algorithm/LERTR')
+const DBpediaModel = require('../models/DBpedia')
+const physiciansModel = require('../models/physicians')
 
 module.exports = async (req, res) => {
     const datasetName = req.query.datasetName

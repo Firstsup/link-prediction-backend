@@ -24,11 +24,14 @@ const SI = require('../algorithm/SI')
 const SOL = require('../algorithm/SOL')
 const ERTR = require('../algorithm/ERTR')
 const LERTR = require('../algorithm/LERTR')
+const Jaccard = require('../algorithm/Jaccard')
+const LP = require('../algorithm/LP')
+const Katz = require('../algorithm/Katz')
 const Preprocessing = require('../indicator/preprocessing')
 const AUC = require('../indicator/AUC')
 const Precision = require('../indicator/Precision')
 
-const tenCrossValidation = async (datasetName, algorithm, m, n) => {
+const tenCrossValidation = async (datasetName, algorithm, m, n, L = 100, ratio = 0.9) => {
     const data = await eval(datasetName + 'Model').find({})
     const datasetInfo = await datasetModel.find({datasetName: datasetName})
     const vertexCount = datasetInfo[0].vertexCount
@@ -57,14 +60,18 @@ const tenCrossValidation = async (datasetName, algorithm, m, n) => {
     let sumPrecision = 0
     for (let i = 0; i < 10; i++) {
         const dataArray = _.cloneDeep(templateDataArray)
-        category[i].forEach(d => {
-            _.pull(dataArray[d[0] - 1], d[1])
-            _.pull(dataArray[d[1] - 1], d[0])
-        })
+        let allCategory = []
+        for (let j = 0; j < (1 - ratio) * 10; j++) {
+            category[j].forEach(d => {
+                _.pull(dataArray[d[0] - 1], d[1])
+                _.pull(dataArray[d[1] - 1], d[0])
+            })
+            allCategory = allCategory.concat(category[j])
+        }
         const similarityMatrix = eval(algorithm)(data, dataArray, m, n)
-        const {testScore, nonExistScore} = Preprocessing(similarityMatrix, dataArray, category[i])
+        const {testScore, nonExistScore} = Preprocessing(similarityMatrix, dataArray, allCategory)
         const tempAUCScore = AUC(testScore, nonExistScore)
-        const tempPrecisionScore = Precision(testScore, nonExistScore)
+        const tempPrecisionScore = Precision(testScore, nonExistScore, L)
         sumAUC += tempAUCScore
         sumPrecision += tempPrecisionScore
     }

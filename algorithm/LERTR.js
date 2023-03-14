@@ -16,13 +16,13 @@ const LERTR = (data, dataArray, a = 1, b = 0.1) => {
                     if (d2 !== i + 1 && d2 !== j + 1) {
                         if (intersection.includes(d2)) {
                             v1 += 2 / dataArray[d2 - 1].length
-                            v2 += (dataArray[d2 - 1].length - 3) / dataArray[d2 - 1].length
+                            v2 += (dataArray[d2 - 1].length - 2) / dataArray[d2 - 1].length
                         } else {
                             v3++
                         }
                     }
                 })
-                sum += (2 + v1) / (v2 + v3 + 1)
+                sum += (2 + v1 + neighbors.length) / (v2 + v3 + neighbors.length)
             })
             const neighborsA = []
             dataArray[i].forEach(d => {
@@ -60,7 +60,7 @@ const LERTR = (data, dataArray, a = 1, b = 0.1) => {
                     }
                 })
                 const i2 = []
-                dataArray[d1[1] - 1].forEach(d2 => {
+                dataArray[n2 - 1].forEach(d2 => {
                     if (intersection.includes(d2)) {
                         i2.push(d2)
                     } else {
@@ -78,12 +78,12 @@ const LERTR = (data, dataArray, a = 1, b = 0.1) => {
                     v2 += 1 / dataArray[n2 - 1].length * (2 / dataArray[d2 - 1].length)
                 })
                 i1.forEach(d2 => {
-                    v3 += 1 / dataArray[n1 - 1].length * ((dataArray[d2 - 1].length - 3) / dataArray[d2 - 1].length)
+                    v3 += 1 / dataArray[n1 - 1].length * ((dataArray[d2 - 1].length - 2) / dataArray[d2 - 1].length)
                 })
                 i2.forEach(d2 => {
-                    v4 += 1 / dataArray[n2 - 1].length * ((dataArray[d2 - 1].length - 3) / dataArray[d2 - 1].length)
+                    v4 += 1 / dataArray[n2 - 1].length * ((dataArray[d2 - 1].length - 2) / dataArray[d2 - 1].length)
                 })
-                sum += a * ((4 / (dataArray[n1 - 1].length * dataArray[n2 - 1].length)) + b * v1 + b * v2) / (b * v3 + b * v4 + v5 + v6 + 1)
+                sum += a * (1 / dataArray[n1 - 1].length + 1 / dataArray[n2 - 1].length + 2 / (dataArray[n1 - 1].length * dataArray[n2 - 1].length) + b * v1 + b * v2) / (b * v3 + b * v4 + v5 / dataArray[n1 - 1].length + v6 / dataArray[n2 - 1].length - 2 / (dataArray[n1 - 1].length * dataArray[n2 - 1].length) + 1)
             })
             similarityMatrix[i][j] = sum
         }
