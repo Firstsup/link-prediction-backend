@@ -27,11 +27,12 @@ const LERTR = require('../algorithm/LERTR')
 const Jaccard = require('../algorithm/Jaccard')
 const LP = require('../algorithm/LP')
 const Katz = require('../algorithm/Katz')
+const HEM = require('../algorithm/HEM')
 const Preprocessing = require('../indicator/preprocessing')
 const AUC = require('../indicator/AUC')
 const Precision = require('../indicator/Precision')
 
-const tenCrossValidation = async (datasetName, algorithm, m, n, L = 100, ratio = 0.9) => {
+const tenCrossValidation = async (datasetName, algorithm, m, n, L = 100, ratio = 0.9, alpha, k) => {
     const data = await eval(datasetName + 'Model').find({})
     const datasetInfo = await datasetModel.find({datasetName: datasetName})
     const vertexCount = datasetInfo[0].vertexCount
@@ -68,7 +69,7 @@ const tenCrossValidation = async (datasetName, algorithm, m, n, L = 100, ratio =
             })
             allCategory = allCategory.concat(category[j])
         }
-        const similarityMatrix = eval(algorithm)(data, dataArray, m, n)
+        const similarityMatrix = eval(algorithm)(data, dataArray, m, n, alpha, k)
         const {testScore, nonExistScore} = Preprocessing(similarityMatrix, dataArray, allCategory)
         const tempAUCScore = AUC(testScore, nonExistScore)
         const tempPrecisionScore = Precision(testScore, nonExistScore, L)
